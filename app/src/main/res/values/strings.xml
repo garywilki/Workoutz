@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Workoutz</string>
     <string name="add_new_profile">Add New Profile</string>
+    <string name="select_profile">Select Profile</string>
 </resources>

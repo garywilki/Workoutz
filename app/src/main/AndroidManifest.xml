@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Workoutz">
         <activity
+            android:name=".Workout"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileDashboard"
+            android:exported="false" />
+        <activity
+            android:name=".NewProfile"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
