@@ -15,6 +15,7 @@ public class ProfileDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_dashboard);
 
+        // Display data from the selected profile
         Intent intent = getIntent();
         int profileID = intent.getIntExtra(MainActivity.EXTRA_INT_PROFILEID, -1);
         if (profileID != -1) {

@@ -18,18 +18,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MainActivity.profileList = loadProfilesFromDevice();
+        loadProfilesFromDevice();
     }
 
-    public List<Profile> loadProfilesFromDevice() {
+    public static void loadProfilesFromDevice() {
         List<Profile> profileList = new ArrayList<>();
         // TO DO:
         // Load profile data from the phone
-        // Return data as a List of profiles
         Profile profile = new Profile();
         profile.name = "Bobby Fischer";
         profileList.add(profile);
-        return profileList;
+        MainActivity.profileList = profileList;
+    }
+
+    public static void saveProfilesToDevice() {
+        // TO DO:
+        // Save profile data to the phone
     }
 
     public void selectProfileButton(View view) {

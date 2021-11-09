@@ -20,7 +20,6 @@ public class NewProfile extends AppCompatActivity {
         // Append the new Profile into the profileList
         // Save profileList data to phone
         // Go to MainActivity
-        // Profile list may be referenced from MainActivity.profileList
     }
 
     public void backButton() {
