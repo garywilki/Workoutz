@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 public class Workout extends AppCompatActivity {
 
+    Profile profile;
     // Timer timer;
 
     @Override

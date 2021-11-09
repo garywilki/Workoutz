@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 public class ProfileDashboard extends AppCompatActivity {
 
+    Profile profile;
     // Graph graph;
 
     @Override
@@ -15,18 +16,30 @@ public class ProfileDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_dashboard);
 
-        // Display data from the selected profile
+        // Obtain the profile ID
         Intent intent = getIntent();
         int profileID = intent.getIntExtra(MainActivity.EXTRA_INT_PROFILEID, -1);
+
         if (profileID != -1) {
+            // Acquire the selected profile
+            this.profile = MainActivity.getProfile(profileID);
+
+            // Display data from the selected profile
             TextView profileName = findViewById(R.id.profileName);
-            profileName.setText(MainActivity.profileList.get(profileID).name);
+            profileName.setText(this.profile.name);
+        }
+        else {
+            // TO DO:
+            // Handle case where the profile ID was not delivered
         }
     }
 
     public void startButton() {
         // TO DO:
         // Starts Workout activity
+        Intent intent = new Intent(this, Workout.class);
+        intent.putExtra(MainActivity.EXTRA_INT_PROFILEID, this.profile.id);
+        startActivity(intent);
     }
 
     public void backButton() {
