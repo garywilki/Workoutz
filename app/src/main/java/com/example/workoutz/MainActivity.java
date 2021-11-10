@@ -94,4 +94,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewProfile.class);
         startActivity(intent);
     }
+
+    public void doNothing() {
+        int i = 0;
+    }
 }
