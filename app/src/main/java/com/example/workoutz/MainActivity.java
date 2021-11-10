@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         // TO DO:
         // Load profile data from the phone
         Profile profile = new Profile();
-        profile.name = "Bobby Fischer";
+        profile.name = "Gary Kasparov";
         profileList.add(profile);
         MainActivity.profileList = profileList;
     }
