@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
         loadProfilesFromDevice();
     }
 
+    public void drDoLittle() {
+        //I do nothing!
+    }
+
     /*
         loadProfilesFromDevice
         Loads all profile data from device into memory
