@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class ProfileDashboard extends AppCompatActivity {
@@ -34,7 +35,7 @@ public class ProfileDashboard extends AppCompatActivity {
         }
     }
 
-    public void startButton() {
+    public void startButton(View view) {
         // TO DO:
         // Starts Workout activity
         Intent intent = new Intent(this, Workout.class);
@@ -42,7 +43,7 @@ public class ProfileDashboard extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void backButton() {
+    public void backButton(View view) {
         // TO DO:
         // Go to MainActivity
         // Do not save or modify the profileList

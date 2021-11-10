@@ -3,6 +3,7 @@ package com.example.workoutz;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 public class Workout extends AppCompatActivity {
 
@@ -15,12 +16,12 @@ public class Workout extends AppCompatActivity {
         setContentView(R.layout.activity_workout);
     }
 
-    public void togglePauseButton() {
+    public void togglePauseButton(View view) {
         // TO DO:
         // Pauses/Unpauses the workout timer
     }
 
-    public void stopButton() {
+    public void stopButton(View view) {
         // Ends workout
         // Saving profile data
         // Returns to ProfileDashboard activity
