@@ -1,27 +1,42 @@
 package com.example.workoutz;
 
 import android.app.Activity;
+import android.os.CountDownTimer;
 import android.view.View;
 
 public class WorkoutPresenter {
 
-    private String time;
+    private int timeInt;
     private Workout activity;
+    private CountDownTimer timer;
 
 
-    public WorkoutPresenter(String time, Workout activity) {
+    public WorkoutPresenter(Workout activity) {
 
         // Initialize the time and activity variables
-        this.time = time;
         this.activity = activity;
+
+
     }
 
-    public void handleButton(View view) {
+    public void startTimer(View view, String timeString) {
 
         // Set a new time TO BE REPLACED BY ACTUALLY TIMERS
-        time = "0:01";
+        timeInt = Integer.parseInt(timeString) * 1000;
+        this.timer = new CountDownTimer(timeInt, 1000) {
 
-        // Call workout.updateTime() to make the new time display on the screen
-        activity.updateTime(time);
+            public void onTick(long millisUntilFinished) {
+                activity.updateTime(millisUntilFinished / 1000 + "", false);
+            }
+
+            public void onFinish() {
+                activity.updateTime("Finished!", true);
+            }
+
+        }.start();
+    }
+
+    public void pauseTimer(View view) {
+        this.timer.cancel();
     }
 }
