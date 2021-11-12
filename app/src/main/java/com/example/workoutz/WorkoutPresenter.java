@@ -6,27 +6,29 @@ import android.view.View;
 
 public class WorkoutPresenter {
 
-    private int timeInt;
     private Workout activity;
     private CountDownTimer timer;
+    public int currentMillis;
 
 
-    public WorkoutPresenter(Workout activity) {
+    public WorkoutPresenter(Workout activity, String timeString) {
 
         // Initialize the time and activity variables
         this.activity = activity;
+        this.currentMillis = 610000;
+
+        calculateTime(currentMillis);
 
 
     }
 
-    public void startTimer(View view, String timeString) {
+    public void startTimer(View view) {
 
-        // Set a new time TO BE REPLACED BY ACTUALLY TIMERS
-        timeInt = Integer.parseInt(timeString) * 1000;
-        this.timer = new CountDownTimer(timeInt, 1000) {
+        this.timer = new CountDownTimer(currentMillis, 10) {
 
             public void onTick(long millisUntilFinished) {
-                activity.updateTime(millisUntilFinished / 1000 + "", false);
+                currentMillis = (int) millisUntilFinished;
+                calculateTime(currentMillis);
             }
 
             public void onFinish() {
@@ -38,5 +40,21 @@ public class WorkoutPresenter {
 
     public void pauseTimer(View view) {
         this.timer.cancel();
+    }
+
+    public void calculateTime(int millis) {
+        String newTime;
+
+        int totalSeconds = (millis / 1000);
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+
+        if (seconds < 10) {
+            newTime = minutes + ":0" + seconds;
+        } else {
+            newTime = minutes + ":" + seconds;
+        }
+
+        activity.updateTime(newTime, false);
     }
 }

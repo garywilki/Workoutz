@@ -30,15 +30,12 @@ public class Workout extends AppCompatActivity {
         running = false;
         finished = false;
 
-        timeString = "10";
-
         time = findViewById(R.id.timer_text);
-        time.setText(timeString);
 
         pauseButton = findViewById(R.id.pause_button);
 
         // Set up the presenter so it has a reference to this activity, as well as the current time
-        presenter = new WorkoutPresenter(this);
+        presenter = new WorkoutPresenter(this, timeString);
     }
 
     public void togglePauseButton(View view) {
@@ -49,7 +46,7 @@ public class Workout extends AppCompatActivity {
         if (finished == false) {
             if (running == false) {
                 timeString = time.getText().toString();
-                presenter.startTimer(view, timeString);
+                presenter.startTimer(view);
                 running = true;
                 pauseButton.setText("Pause");
             } else {
