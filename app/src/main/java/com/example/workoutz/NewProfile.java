@@ -2,14 +2,18 @@ package com.example.workoutz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
 public class NewProfile extends AppCompatActivity {
 
-    Profile profile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,21 +22,37 @@ public class NewProfile extends AppCompatActivity {
     }
 
     public void addProfileButton(View view) {
-        // TO DO:
-        // Save user-input options as a new Profile
 
-        // Append the new Profile into the profileList
-        MainActivity.addProfile(profile);
+        // Obtain user text input
+        String name = ((EditText) findViewById(R.id.editTextAddName)).getText().toString();
+        String repsString = ((EditText) findViewById(R.id.editTextReps)).getText().toString();
+        String workIntervalString = ((EditText) findViewById(R.id.editTextWork)).getText().toString();
+        String restIntervalString = ((EditText) findViewById(R.id.editTextRest)).getText().toString();
 
-        // Save profileList data to phone
-        MainActivity.saveProfilesToDevice();
+        if (name.isEmpty() || repsString.isEmpty() || workIntervalString.isEmpty() ||restIntervalString.isEmpty()) {
+            // Require the user to enter values in each box
+            Toast.makeText(this, "Please fill in each field", Toast.LENGTH_LONG).show();
+        }
+        else {
+            // Parse the data
+            int reps = Integer.parseInt(repsString);
+            int workInterval = Integer.parseInt(workIntervalString);
+            int restInterval = Integer.parseInt(restIntervalString);
 
-        // Go to MainActivity
+            // Create new Profile based on user-input
+            Profile profile = new Profile(name, reps, workInterval, restInterval, 0, 0);
+
+            // Append the new Profile into the profileList and save changes to device
+            MainModel.addProfile(this, profile, true);
+
+            // Go to MainActivity
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void backButton(View view) {
-        // TO DO:
-        // Go to MainActivity
-        // Do not save or modify the profileList
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

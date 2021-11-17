@@ -4,94 +4,92 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Private list.  Other classes should use public static methods to access
-    private static List<Profile> profileList;
+    private MainPresenter presenter;
 
-    // Used for passing profile IDs to other activities
-    public static final String EXTRA_INT_PROFILEID = "com.example.scripture.PROFILEID";
+    // Profile adapter that will handle data in the ListView
+    ArrayAdapter<Profile> adapter;
+    //
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loadProfilesFromDevice();
+
+        // Start the Presenter class
+        presenter = new MainPresenter(this);
     }
 
-    /*
-        loadProfilesFromDevice
-        Loads all profile data from device into memory
+    /**
+     * goToProfileDashboard()
+     * Selects a profile and enters the ProfileDashboard activity
+     *
+     * @param p - The profile that has been selected
      */
-    public static void loadProfilesFromDevice() {
-        List<Profile> profileList = new ArrayList<>();
-        // TO DO:
-        // Load profile data from the phone
-        Profile profile = new Profile();
-        profile.name = "George Washington";
-        profileList.add(profile);
-        MainActivity.profileList = profileList;
-    }
-
-    /*
-        saveProfilesFromDevice
-        Saves all profile data to device from memory
-     */
-    public static void saveProfilesToDevice() {
-        // TO DO:
-        // Save profile data to the phone
-    }
-
-    /*
-        getProfile
-        @param int profileID - the unique ID of the profile
-        Obtains a reference to a profile based on the specified ID
-     */
-    public static Profile getProfile(int profileID) {
-        for (Profile p : MainActivity.profileList) {
-            if (p.id == profileID) {
-                return p;
-            }
+    public void goToProfileDashboard(Profile p) {
+        if (p != null) {
+            Log.i("MainActivity", "MainActivity.goToProfileDashboard() -> " + p.id + " " + p.name + " " + p.reps + " " + p.workIntervalSeconds + " " + p.restIntervalSeconds + " & " + p.nextID);
+            Intent intent = new Intent(this, ProfileDashboard.class);
+            intent.putExtra(MainModel.EXTRA_INT_PROFILEID, p.id);
+            startActivity(intent);
         }
-        return null;
+        else {
+            Log.e("MainActivity", "MainActivity.goToProfileDashboard() -> NULL Profile reference");
+        }
     }
 
-    /*
-        addProfile
-        @param Profile p - the new profile to be added to the list
-        Adds a new profile to the profile list
-     */
-    public static void addProfile(Profile p) {
-        MainActivity.profileList.add(p);
-    }
-
-    /*
-        selectProfileButton
-        @param View view - The view object that called the method
-        Selects a profile and enters the ProfileDashboard activity
-     */
-    public void selectProfileButton(View view) {
-        // TO DO:
-        // Replace the next line with the ID of the selected profile
-        int profileID = MainActivity.profileList.get(0).id;
-
-        Intent intent = new Intent(this, ProfileDashboard.class);
-        intent.putExtra(EXTRA_INT_PROFILEID, profileID);
-        startActivity(intent);
-    }
-
-    /*
-        addNewProfileButton
-        @param View view - The view object that called the method
-        Enters the NewProfile activity
+    /**
+     * addNewProfileButton()
+     * Enters the NewProfile activity
+     *
+     * @param view - The view object that called the method
      */
     public void addNewProfileButton(View view) {
         Intent intent = new Intent(this, NewProfile.class);
         startActivity(intent);
     }
+
+    /**
+     * addNewProfileButton()
+     * Enters the NewProfile activity
+     *
+     * @param profileList - The view object that called the method
+     */
+    public void setupProfileList(List<Profile> profileList) {
+        // Attaches an adapter to the ListView that will create TextViews for each item in our profile list
+        // The string used for the TextView is obtained using Profile.toString()
+        adapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, profileList);
+        ListView lv = (ListView)findViewById(R.id.profileListView);
+        lv.setAdapter(adapter);
+
+        // When a profile entry is pressed, send a reference to the profile to the presenter
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Profile p = adapter.getItem(Math.toIntExact(id));
+                presenter.handleProfileSelected(p);
+            }
+        });
+
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Profile p = adapter.getItem(Math.toIntExact(id));
+                presenter.handleProfileDelete(p);
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+        });
+    }
+
 }

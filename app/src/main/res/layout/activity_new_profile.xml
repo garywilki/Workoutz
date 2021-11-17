@@ -6,4 +6,129 @@
     android:layout_height="match_parent"
     tools:context=".NewProfile">
 
+    <TextView
+        android:id="@+id/addLabelName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/name"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/addLabelWork"
+        app:layout_constraintTop_toBottomOf="@+id/newTitle" />
+
+    <TextView
+        android:id="@+id/addLabelReps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/reps"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/addLabelWork"
+        app:layout_constraintTop_toBottomOf="@+id/addLabelName" />
+
+    <TextView
+        android:id="@+id/addLabelWork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/work_interval"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addLabelReps" />
+
+    <TextView
+        android:id="@+id/addLabelRest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/rest_interval"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/addLabelWork"
+        app:layout_constraintTop_toBottomOf="@+id/addLabelWork" />
+
+    <TextView
+        android:id="@+id/newTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/add_new_profile"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/addNewProfile2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="addProfileButton"
+        android:text="@string/create_profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addLabelRest"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="96dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="backButton"
+        android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextAddName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBaseline_toBaselineOf="@+id/addLabelName"
+        app:layout_constraintStart_toEndOf="@+id/addLabelWork" />
+
+    <EditText
+        android:id="@+id/editTextReps"
+        android:layout_width="72dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/addLabelReps"
+        app:layout_constraintStart_toEndOf="@+id/addLabelWork" />
+
+    <EditText
+        android:id="@+id/editTextWork"
+        android:layout_width="72dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/addLabelWork"
+        app:layout_constraintStart_toEndOf="@+id/addLabelWork" />
+
+    <EditText
+        android:id="@+id/editTextRest"
+        android:layout_width="72dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/addLabelRest"
+        app:layout_constraintStart_toEndOf="@+id/addLabelWork" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
