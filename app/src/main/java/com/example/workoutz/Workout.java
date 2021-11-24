@@ -3,18 +3,17 @@ package com.example.workoutz;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class Workout extends AppCompatActivity {
-
-    Profile profile;
-    // Timer timer;
 
     TextView time;
     TextView repsRemaining;
@@ -26,6 +25,12 @@ public class Workout extends AppCompatActivity {
     Boolean finished;
     int profileID;
     Profile p;
+
+    // Variables for sound effects and muting them
+    MediaPlayer shortBeep;
+    MediaPlayer longBeep;
+    Boolean muted = false;
+    ImageButton muteImageButton;
 
 
     @Override
@@ -45,13 +50,12 @@ public class Workout extends AppCompatActivity {
         repsRemaining = findViewById(R.id.reps_remaining);
         currentTimer = findViewById(R.id.current_timer);
 
-        time.setText("0");
-
-        repsRemaining.setText("5");
-
-        currentTimer.setText("Rest");
-
         pauseButton = findViewById(R.id.pause_button);
+
+        muteImageButton = (ImageButton)findViewById(R.id.mute_button);
+
+        shortBeep = MediaPlayer.create(this, R.raw.beep_short);
+        longBeep = MediaPlayer.create(this, R.raw.beep_long);
 
         // Set up the presenter so it has a reference to this activity, as well as the current time
         presenter = new WorkoutPresenter(this, p);
@@ -85,7 +89,7 @@ public class Workout extends AppCompatActivity {
         // Returns to ProfileDashboard activity
     }
 
-    public void updateTime(String newTime, Boolean finished, int reps, String workState) {
+    public void updateTime(String newTime, Boolean finished, int reps, String workState, String beep) {
         // Updates the visible time on the screen
         if (newTime != null) {
             time.setText(newTime);
@@ -95,6 +99,15 @@ public class Workout extends AppCompatActivity {
         currentTimer.setText(workState);
 
         repsRemaining.setText(String.valueOf(reps));
+
+        // If the timer isn't muted, play the appropriate sound
+        if (muted == false) {
+            if (beep == "short") {
+                shortBeep.start();
+            } else if (beep == "long") {
+                longBeep.start();
+            }
+        }
 
         if (finished == true) {
             ViewGroup layout = (ViewGroup) pauseButton.getParent();
@@ -107,12 +120,29 @@ public class Workout extends AppCompatActivity {
     public void backButton(View view) {
         if (p != null) {
             Log.i("MainActivity", "MainActivity.goToProfileDashboard() -> " + p.id + " " + p.name + " " + p.reps + " " + p.workIntervalSeconds + " " + p.restIntervalSeconds + " & " + p.nextID);
+
+            // Make sure to stop any currently running timer when back is pressed
+            presenter.pauseTimer(view);
+
             Intent intent = new Intent(this, ProfileDashboard.class);
             intent.putExtra(MainModel.EXTRA_INT_PROFILEID, p.id);
             startActivity(intent);
         }
         else {
             Log.e("MainActivity", "MainActivity.goToProfileDashboard() -> NULL Profile reference");
+        }
+    }
+
+    public void muteButton(View view) {
+
+        // This function controls the state of the muted boolean - and also changes the btn image appropriately
+
+        if (muted == false) {
+            muted = true;
+            muteImageButton.setImageResource(R.drawable.ic_unmute);
+        } else {
+            muted = false;
+            muteImageButton.setImageResource(R.drawable.ic_mute);
         }
     }
 }
