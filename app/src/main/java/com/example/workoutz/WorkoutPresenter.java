@@ -1,6 +1,7 @@
 package com.example.workoutz;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.view.View;
 
@@ -16,6 +17,7 @@ public class WorkoutPresenter {
     int pRest;
     Boolean working = false;
     Boolean preWorkout = true;
+    String beepType = "";
 
 
     public WorkoutPresenter(Workout activity, Profile p) {
@@ -45,10 +47,10 @@ public class WorkoutPresenter {
 
             public void onFinish() {
                 // If reps goes down to one, finish the workout. Otherwise, start a new timer with the correct values
-                if (pReps <= 1) {
+                if (pReps <= 1 && working == true) {
                     working = false;
                     pReps -= 1;
-                    activity.updateTime("Finished!", true, pReps, "Rest");
+                    activity.updateTime("Finished!", true, pReps, "Rest", "long");
                 } else {
                     if (preWorkout) {
 
@@ -60,7 +62,7 @@ public class WorkoutPresenter {
 
                         // Update the timer currentMillis value to have the correct work interval value
                         currentMillis = pWork;
-                        activity.updateTime(null, false, pReps, "Rest");
+                        activity.updateTime(null, false, pReps, "Rest", "long");
 
                         // Use recursion to start the next timer in the chain, if the current timer finishes
                         startTimer(view);
@@ -71,12 +73,12 @@ public class WorkoutPresenter {
                             working = true;
                             pReps -= 1;
                             currentMillis = pWork;
-                            activity.updateTime(null, false, pReps, "Work");
+                            activity.updateTime(null, false, pReps, "Work", "long");
                             startTimer(view);
                         } else if (working) {
                             working = false;
                             currentMillis = pRest;
-                            activity.updateTime(null, false, pReps, "Rest");
+                            activity.updateTime(null, false, pReps, "Rest", "long");
                             startTimer(view);
                         }
                     }
@@ -87,7 +89,9 @@ public class WorkoutPresenter {
     }
 
     public void pauseTimer(View view) {
-        this.timer.cancel();
+         if (this.timer != null) {
+             this.timer.cancel();
+         }
     }
 
     public void calculateTime(int millis) {
@@ -105,6 +109,14 @@ public class WorkoutPresenter {
             newTime = minutes + ":" + seconds;
         }
 
+        // Check if seconds changes to 3, 2, or 1, and if so, set the beep type
+
+        if (millis <= 3050 && millis > 3000 || millis <= 2050 && millis > 2000 || millis <= 1050 && millis > 1000) {
+            beepType = "short";
+        } else {
+            beepType = "none";
+        }
+
         // Adjust the current work state based on appropriate boolean values
 
         String workState;
@@ -119,6 +131,6 @@ public class WorkoutPresenter {
 
         // Send everything to the Workout Activity to update what's displayed
 
-        activity.updateTime(newTime, false, pReps, workState);
+        activity.updateTime(newTime, false, pReps, workState, beepType);
     }
 }
