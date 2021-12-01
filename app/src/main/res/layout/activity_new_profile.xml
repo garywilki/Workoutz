@@ -7,33 +7,44 @@
     tools:context=".NewProfile">
 
     <TextView
+        android:id="@+id/colon1"
+        android:layout_width="12dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="38dp"
+        android:text="@string/colon"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/editWorkMinutes"
+        app:layout_constraintTop_toBottomOf="@+id/editReps" />
+
+    <TextView
         android:id="@+id/addLabelName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="4dp"
         android:text="@string/name"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/addLabelWork"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newTitle" />
 
     <TextView
         android:id="@+id/addLabelReps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="99dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="4dp"
         android:text="@string/reps"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/addLabelWork"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addLabelName" />
 
     <TextView
         android:id="@+id/addLabelWork"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
         android:text="@string/work_interval"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,11 +54,11 @@
         android:id="@+id/addLabelRest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="50dp"
         android:text="@string/rest_interval"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/addLabelWork"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addLabelWork" />
 
     <TextView
@@ -68,7 +79,7 @@
         android:id="@+id/addNewProfile2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="130dp"
         android:layout_marginBottom="16dp"
         android:onClick="addProfileButton"
         android:text="@string/create_profile"
@@ -78,57 +89,111 @@
         app:layout_constraintTop_toBottomOf="@+id/addLabelRest"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="96dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="backButton"
-        android:text="@string/back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <EditText
         android:id="@+id/editTextAddName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="37dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBaseline_toBaselineOf="@+id/addLabelName"
-        app:layout_constraintStart_toEndOf="@+id/addLabelWork" />
+        android:maxLength="30"
+        app:layout_constraintStart_toEndOf="@+id/addLabelName"
+        app:layout_constraintTop_toBottomOf="@+id/newTitle" />
+
+    <TextView
+        android:id="@+id/colon2"
+        android:layout_width="12dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="33dp"
+        android:text="@string/colon"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/editRestMinutes"
+        app:layout_constraintTop_toBottomOf="@+id/colon1" />
+
+    <ImageButton
+        android:id="@+id/back_button_new_prof"
+        android:layout_width="68dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="backButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_back" />
 
     <EditText
-        android:id="@+id/editTextReps"
-        android:layout_width="72dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="16dp"
+        android:id="@+id/editRestMinutes"
+        android:layout_width="36dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="33dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintBaseline_toBaselineOf="@+id/addLabelReps"
-        app:layout_constraintStart_toEndOf="@+id/addLabelWork" />
+        android:maxLength="2"
+        android:text="@string/zeros"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/addLabelRest"
+        app:layout_constraintTop_toBottomOf="@+id/editWorkMinutes"
+        android:selectAllOnFocus="true" />
 
     <EditText
-        android:id="@+id/editTextWork"
-        android:layout_width="72dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="16dp"
+        android:id="@+id/editRestSeconds"
+        android:layout_width="36dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="33dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintBaseline_toBaselineOf="@+id/addLabelWork"
-        app:layout_constraintStart_toEndOf="@+id/addLabelWork" />
+        android:maxLength="2"
+        android:text="@string/zeros"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/colon2"
+        app:layout_constraintTop_toBottomOf="@+id/editWorkSeconds"
+        android:selectAllOnFocus="true" />
 
     <EditText
-        android:id="@+id/editTextRest"
-        android:layout_width="72dp"
-        android:layout_height="47dp"
+        android:id="@+id/editWorkMinutes"
+        android:layout_width="36dp"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="38dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintBaseline_toBaselineOf="@+id/addLabelRest"
-        app:layout_constraintStart_toEndOf="@+id/addLabelWork" />
+        android:maxLength="2"
+        android:text="@string/zeros"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/addLabelWork"
+        app:layout_constraintTop_toBottomOf="@+id/editReps"
+        android:selectAllOnFocus="true" />
+
+    <EditText
+        android:id="@+id/editWorkSeconds"
+        android:layout_width="36dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="38dp"
+        android:ems="10"
+        android:inputType="number"
+        android:maxLength="2"
+        android:text="@string/zeros"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/colon1"
+        app:layout_constraintTop_toBottomOf="@+id/editReps"
+        android:selectAllOnFocus="true" />
+
+    <EditText
+        android:id="@+id/editReps"
+        android:layout_width="43dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="number"
+        android:maxLength="2"
+        android:text="@string/zeros"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/addLabelReps"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAddName"
+        android:selectAllOnFocus="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,11 +25,19 @@ public class NewProfile extends AppCompatActivity {
 
         // Obtain user text input
         String name = ((EditText) findViewById(R.id.editTextAddName)).getText().toString();
-        String repsString = ((EditText) findViewById(R.id.editTextReps)).getText().toString();
-        String workIntervalString = ((EditText) findViewById(R.id.editTextWork)).getText().toString();
-        String restIntervalString = ((EditText) findViewById(R.id.editTextRest)).getText().toString();
+        String repsString = ((EditText) findViewById(R.id.editReps)).getText().toString();
 
-        if (name.isEmpty() || repsString.isEmpty() || workIntervalString.isEmpty() ||restIntervalString.isEmpty()) {
+        int workMinutes = Integer.valueOf(((EditText) findViewById(R.id.editWorkMinutes)).getText().toString());
+        int workSeconds = Integer.valueOf(((EditText) findViewById(R.id.editWorkSeconds)).getText().toString()) + (workMinutes * 60);
+
+        int restMinutes = Integer.valueOf(((EditText) findViewById(R.id.editRestMinutes)).getText().toString());
+        int restSeconds = Integer.valueOf(((EditText) findViewById(R.id.editRestSeconds)).getText().toString()) + (restMinutes * 60);
+
+        String workIntervalString = Integer.toString(workSeconds);
+        String restIntervalString = Integer.toString(restSeconds);
+
+        if (name.isEmpty() || repsString.isEmpty() || workIntervalString.isEmpty() || restIntervalString.isEmpty() || Integer.valueOf(repsString) == 0
+                || Integer.valueOf(workIntervalString) == 0 || Integer.valueOf(restIntervalString) == 0) {
             // Require the user to enter values in each box
             Toast.makeText(this, "Please fill in each field", Toast.LENGTH_LONG).show();
         }

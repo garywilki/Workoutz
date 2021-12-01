@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ public class Workout extends AppCompatActivity {
     TextView time;
     TextView repsRemaining;
     TextView currentTimer;
-    Button pauseButton;
+    ImageButton pauseButton;
     String timeString;
     WorkoutPresenter presenter;
     Boolean running;
@@ -71,14 +72,14 @@ public class Workout extends AppCompatActivity {
                 timeString = time.getText().toString();
                 presenter.startTimer(view);
                 running = true;
-                pauseButton.setText("Pause");
+                pauseButton.setImageResource(R.drawable.ic_pause);
             } else {
                 presenter.pauseTimer(view);
                 running = false;
-                pauseButton.setText("Unpause");
+                pauseButton.setImageResource(R.drawable.ic_play);
             }
         } else {
-            pauseButton.setText("Workout done");
+            pauseButton.setImageResource(R.drawable.ic_play);
         }
 
     }
@@ -93,6 +94,7 @@ public class Workout extends AppCompatActivity {
         // Updates the visible time on the screen
         if (newTime != null) {
             time.setText(newTime);
+
         }
         this.finished = finished;
 
@@ -106,6 +108,14 @@ public class Workout extends AppCompatActivity {
                 shortBeep.start();
             } else if (beep == "long") {
                 longBeep.start();
+                if (finished == true) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            longBeep.start();
+                        }
+                    }, 800);   //1 second delay for second and final timer beep
+                }
             }
         }
 
