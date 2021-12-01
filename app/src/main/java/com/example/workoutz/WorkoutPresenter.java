@@ -47,7 +47,7 @@ public class WorkoutPresenter {
 
             public void onFinish() {
                 // If reps goes down to one, finish the workout. Otherwise, start a new timer with the correct values
-                if (pReps <= 1) {
+                if (pReps <= 1 && working == true) {
                     working = false;
                     pReps -= 1;
                     activity.updateTime("Finished!", true, pReps, "Rest", "long");
