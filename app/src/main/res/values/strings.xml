@@ -18,4 +18,5 @@
     <string name="reps_remaining">0</string>
     <string name="current_timer">Get ready...</string>
     <string name="reps_remaining_label">Reps Remaining:</string>
+    <string name="workouthistory">Workout History (Last 10 days)</string>
 </resources>
