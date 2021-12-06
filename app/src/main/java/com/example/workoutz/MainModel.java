@@ -11,6 +11,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainModel {
@@ -20,6 +21,11 @@ public class MainModel {
 
     // Used for passing profile IDs to other activities
     public static final String EXTRA_INT_PROFILEID = "com.example.workoutz.PROFILEID";
+
+    public static void addProfileTime(int profileID, int seconds) {
+        Profile p = MainModel.getProfile(profileID);
+        p.addTime(seconds);
+    }
 
     /**
      * loadProfilesFromDevice()
@@ -43,12 +49,6 @@ public class MainModel {
             p.id = nextID++;
         }
         Profile.nextID = nextID;
-
-        // For testing purposes only.  Remove in final version.
-/*        Profile profile = new Profile("George Washington",3,10,5,2,30);
-        MainModel.profileList.add(profile);
-        profile = new Profile("Thomas Jefferson",2,3,5,100,100);
-        MainModel.profileList.add(profile);*/
     }
 
     /**
@@ -112,5 +112,19 @@ public class MainModel {
         return MainModel.profileList;
     }
 
-
+    /**
+     * validateProfiles()
+     * Ensures that profiles have necessary components (Needed to prevent crashes after some udpates
+     */
+    public static void validateProfiles() {
+        for (Profile p : MainModel.profileList) {
+            if (p.recentTimes == null) {
+                p.recentTimes = new ArrayList<>();
+                for (int i = 0; i < Profile.NUMBER_OF_HISTORY_DAYS; i++) {
+                    p.recentTimes.add(0); // Initialize the history for past 7 days
+                }
+                p.lastUpdatedDate = Profile.getDateWithoutTime();
+            }
+        }
+    }
 }

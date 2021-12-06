@@ -14,6 +14,7 @@ public class MainPresenter {
         // Load the saved profiles into memory.  Do this only once
         if (MainModel.getProfileList().isEmpty()) {
             MainModel.loadProfilesFromDevice(activity);
+            MainModel.validateProfiles();
         }
 
         activity.setupProfileList(MainModel.getProfileList());
