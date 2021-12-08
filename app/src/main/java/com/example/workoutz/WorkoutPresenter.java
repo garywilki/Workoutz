@@ -17,7 +17,11 @@ public class WorkoutPresenter {
     int pRest;
     Boolean working = false;
     Boolean preWorkout = true;
+    Boolean running = false;
+    Boolean exitingWorkout = false;
     String beepType = "";
+    int profID;
+    int timeElapsed;
 
 
     public WorkoutPresenter(Workout activity, Profile p) {
@@ -27,6 +31,7 @@ public class WorkoutPresenter {
         this.currentMillis = 4000;
 
         //set profile variables for workout, from profile data
+        profID = p.id;
         pReps = p.reps;
         pWork = p.workIntervalSeconds * 1000;
         pRest = p.restIntervalSeconds * 1000;
@@ -38,22 +43,30 @@ public class WorkoutPresenter {
 
     public void startTimer(View view) {
 
+        running = true;
+
         this.timer = new CountDownTimer(currentMillis, 10) {
 
             public void onTick(long millisUntilFinished) {
                 currentMillis = (int) millisUntilFinished;
+                if (working) {
+                    timeElapsed = (int) Math.round((float)(pWork - currentMillis) / 1000);
+                } else {
+                    timeElapsed = (int) Math.round((float)(pRest - currentMillis) / 1000);
+                }
                 calculateTime(currentMillis);
             }
 
             public void onFinish() {
                 // If reps goes down to one, finish the workout. Otherwise, start a new timer with the correct values
                 if (pReps <= 1 && working == true) {
+                    MainModel.addProfileTime(activity, profID, timeElapsed);
                     working = false;
                     pReps -= 1;
                     activity.updateTime("Finished!", true, pReps, "Rest", "long");
+                    running = false;
                 } else {
                     if (preWorkout) {
-
                         // Make sure the pre-workout prep time ends by setting preWorkout to false
                         preWorkout = false;
 
@@ -65,17 +78,21 @@ public class WorkoutPresenter {
                         activity.updateTime(null, false, pReps, "Rest", "long");
 
                         // Use recursion to start the next timer in the chain, if the current timer finishes
-                        startTimer(view);
+                        if (!exitingWorkout) {
+                            startTimer(view);
+                        }
                     } else {
                         if (!working) {
 
                             // Follow same update procedure as above every time we switch from Work to Rest and vice versa
+                            MainModel.addProfileTime(activity, profID, timeElapsed);
                             working = true;
                             pReps -= 1;
                             currentMillis = pWork;
                             activity.updateTime(null, false, pReps, "Work", "long");
                             startTimer(view);
                         } else if (working) {
+                            MainModel.addProfileTime(activity, profID, timeElapsed);
                             working = false;
                             currentMillis = pRest;
                             activity.updateTime(null, false, pReps, "Rest", "long");
@@ -88,10 +105,18 @@ public class WorkoutPresenter {
         }.start();
     }
 
-    public void pauseTimer(View view) {
-         if (this.timer != null) {
-             this.timer.cancel();
-         }
+    public void pauseTimer(View view, Boolean exiting) {
+        exitingWorkout = exiting;
+        if (this.timer != null) {
+            if (exiting) {
+                pReps = 0;
+                this.timer.onFinish();
+                running = false;
+            } else if (!exiting) {
+                running = false;
+            }
+            this.timer.cancel();
+        }
     }
 
     public void calculateTime(int millis) {
@@ -111,7 +136,7 @@ public class WorkoutPresenter {
 
         // Check if seconds changes to 3, 2, or 1, and if so, set the beep type
 
-        if (millis <= 3050 && millis > 3000 || millis <= 2050 && millis > 2000 || millis <= 1050 && millis > 1000) {
+        if (millis <= 10050 && millis > 10000 || millis <= 3050 && millis > 3000 || millis <= 2050 && millis > 2000 || millis <= 1050 && millis > 1000) {
             beepType = "short";
         } else {
             beepType = "none";

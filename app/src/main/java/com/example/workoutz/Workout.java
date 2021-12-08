@@ -74,7 +74,7 @@ public class Workout extends AppCompatActivity {
                 running = true;
                 pauseButton.setImageResource(R.drawable.ic_pause);
             } else {
-                presenter.pauseTimer(view);
+                presenter.pauseTimer(view, false);
                 running = false;
                 pauseButton.setImageResource(R.drawable.ic_play);
             }
@@ -82,12 +82,6 @@ public class Workout extends AppCompatActivity {
             pauseButton.setImageResource(R.drawable.ic_play);
         }
 
-    }
-
-    public void stopButton(View view) {
-        // Ends workout
-        // Saving profile data
-        // Returns to ProfileDashboard activity
     }
 
     public void updateTime(String newTime, Boolean finished, int reps, String workState, String beep) {
@@ -132,7 +126,7 @@ public class Workout extends AppCompatActivity {
             Log.i("MainActivity", "MainActivity.goToProfileDashboard() -> " + p.id + " " + p.name + " " + p.reps + " " + p.workIntervalSeconds + " " + p.restIntervalSeconds + " & " + p.nextID);
 
             // Make sure to stop any currently running timer when back is pressed
-            presenter.pauseTimer(view);
+            presenter.pauseTimer(view, true);
 
             Intent intent = new Intent(this, ProfileDashboard.class);
             intent.putExtra(MainModel.EXTRA_INT_PROFILEID, p.id);

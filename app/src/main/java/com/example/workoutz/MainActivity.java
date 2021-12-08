@@ -2,6 +2,8 @@ package com.example.workoutz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private MainPresenter presenter;
+
+    Boolean longClick = false;
 
     // Profile adapter that will handle data in the ListView
     ArrayAdapter<Profile> adapter;
@@ -76,17 +80,54 @@ public class MainActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Profile p = adapter.getItem(Math.toIntExact(id));
-                presenter.handleProfileSelected(p);
+                if (!longClick) {
+                    Profile p = adapter.getItem(Math.toIntExact(id));
+                    presenter.handleProfileSelected(p);
+                }
             }
         });
 
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                longClick = true;
                 Profile p = adapter.getItem(Math.toIntExact(id));
-                presenter.handleProfileDelete(p);
-                adapter.notifyDataSetChanged();
+
+                //Begin dialogue
+
+                String dialog_message = "Are you sure you want to delete this profile?";
+                String dialog_title = "Delete Profile";
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setMessage(dialog_message)
+                        .setTitle(dialog_title);
+
+                // Go from initiating builder to setting buttons
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        presenter.handleProfileDelete(p);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface arg0) {
+                        longClick = false;
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                builder.show();
+
+                // End dialogue
+
                 return false;
             }
         });

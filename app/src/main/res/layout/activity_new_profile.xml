@@ -79,15 +79,14 @@
         android:id="@+id/addNewProfile2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:onClick="addProfileButton"
         android:text="@string/create_profile"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/back_button_new_prof"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addLabelRest"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/editRestMinutes" />
 
     <EditText
         android:id="@+id/editTextAddName"
@@ -132,11 +131,11 @@
         android:ems="10"
         android:inputType="number"
         android:maxLength="2"
+        android:selectAllOnFocus="true"
         android:text="@string/zeros"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/addLabelRest"
-        app:layout_constraintTop_toBottomOf="@+id/editWorkMinutes"
-        android:selectAllOnFocus="true" />
+        app:layout_constraintTop_toBottomOf="@+id/editWorkMinutes" />
 
     <EditText
         android:id="@+id/editRestSeconds"
@@ -146,11 +145,11 @@
         android:ems="10"
         android:inputType="number"
         android:maxLength="2"
+        android:selectAllOnFocus="true"
         android:text="@string/zeros"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/colon2"
-        app:layout_constraintTop_toBottomOf="@+id/editWorkSeconds"
-        android:selectAllOnFocus="true" />
+        app:layout_constraintTop_toBottomOf="@+id/editWorkSeconds" />
 
     <EditText
         android:id="@+id/editWorkMinutes"
@@ -161,11 +160,11 @@
         android:ems="10"
         android:inputType="number"
         android:maxLength="2"
+        android:selectAllOnFocus="true"
         android:text="@string/zeros"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/addLabelWork"
-        app:layout_constraintTop_toBottomOf="@+id/editReps"
-        android:selectAllOnFocus="true" />
+        app:layout_constraintTop_toBottomOf="@+id/editReps" />
 
     <EditText
         android:id="@+id/editWorkSeconds"
@@ -175,11 +174,11 @@
         android:ems="10"
         android:inputType="number"
         android:maxLength="2"
+        android:selectAllOnFocus="true"
         android:text="@string/zeros"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/colon1"
-        app:layout_constraintTop_toBottomOf="@+id/editReps"
-        android:selectAllOnFocus="true" />
+        app:layout_constraintTop_toBottomOf="@+id/editReps" />
 
     <EditText
         android:id="@+id/editReps"
@@ -190,10 +189,10 @@
         android:ems="10"
         android:inputType="number"
         android:maxLength="2"
+        android:selectAllOnFocus="true"
         android:text="@string/zeros"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/addLabelReps"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddName"
-        android:selectAllOnFocus="true" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextAddName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

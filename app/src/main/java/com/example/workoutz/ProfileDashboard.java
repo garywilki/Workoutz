@@ -44,13 +44,23 @@ public class ProfileDashboard extends AppCompatActivity {
             TextView profileReps = findViewById(R.id.profileReps);
             profileReps.setText(String.valueOf(this.profile.reps));
 
-            // Display data from the selected profile
+            // Display data from the selected profile in minute:second format
             TextView profileWorkInterval = findViewById(R.id.profileWorkInterval);
-            profileWorkInterval.setText(String.valueOf(this.profile.workIntervalSeconds));
+            int workTotalSeconds = Integer.valueOf(this.profile.workIntervalSeconds);
+            int workMinutes = workTotalSeconds / 60;
+            int workSeconds = workTotalSeconds % 60;
 
-            // Display data from the selected profile
+            String workTime = formatTime(workSeconds, workMinutes);
+            profileWorkInterval.setText(String.valueOf(workTime));
+
+            // Display data from the selected profile in minute:second format
             TextView profileRestInterval = findViewById(R.id.profileRestInterval);
-            profileRestInterval.setText(String.valueOf(this.profile.restIntervalSeconds));
+            int restTotalSeconds = Integer.valueOf(this.profile.restIntervalSeconds);
+            int restMinutes = restTotalSeconds / 60;
+            int restSeconds = restTotalSeconds % 60;
+
+            String restTime = formatTime(restSeconds, restMinutes);
+            profileRestInterval.setText(String.valueOf(restTime));
         }
         else {
             // TO DO:
@@ -73,6 +83,16 @@ public class ProfileDashboard extends AppCompatActivity {
         BarData data = new BarData(daysAgo, bardataset);
         //bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
         chart.setData(data);
+    }
+
+    public String formatTime(int seconds, int minutes) {       // Simple function to format time strings for display
+        String newTime;
+        if (seconds < 10) {
+            newTime = minutes + ":0" + seconds;
+        } else {
+            newTime = minutes + ":" + seconds;
+        }
+        return newTime;
     }
 
     public void startButton(View view) {

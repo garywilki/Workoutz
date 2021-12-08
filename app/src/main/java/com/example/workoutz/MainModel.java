@@ -22,9 +22,10 @@ public class MainModel {
     // Used for passing profile IDs to other activities
     public static final String EXTRA_INT_PROFILEID = "com.example.workoutz.PROFILEID";
 
-    public static void addProfileTime(int profileID, int seconds) {
+    public static void addProfileTime(Activity activity, int profileID, int seconds) {
         Profile p = MainModel.getProfile(profileID);
         p.addTime(seconds);
+        saveProfilesToDevice(activity); // Immediately update the device record
     }
 
     /**
