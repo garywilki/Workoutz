@@ -51,7 +51,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
         pauseButton = findViewById(R.id.pause_button);
 
-        muteImageButton = (ImageButton)findViewById(R.id.mute_button);
+        muteImageButton = findViewById(R.id.mute_button);
 
         shortBeep = MediaPlayer.create(this, R.raw.beep_short);
         longBeep = MediaPlayer.create(this, R.raw.beep_long);
@@ -65,8 +65,8 @@ public class WorkoutActivity extends AppCompatActivity {
         // Pauses/Unpauses the workout timer
 
         // Pass the work off to the presenter class
-        if (finished == false) {
-            if (running == false) {
+        if (!finished) {
+            if (!running) {
                 timeString = time.getText().toString();
                 presenter.startTimer(view);
                 running = true;
@@ -95,12 +95,12 @@ public class WorkoutActivity extends AppCompatActivity {
         repsRemaining.setText(String.valueOf(reps));
 
         // If the timer isn't muted, play the appropriate sound
-        if (muted == false) {
-            if (beep == "short") {
+        if (!muted) {
+            if (beep.equals("short")) {
                 shortBeep.start();
-            } else if (beep == "long") {
+            } else if (beep.equals("long")) {
                 longBeep.start();
-                if (finished == true) {
+                if (finished) {
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
@@ -111,11 +111,11 @@ public class WorkoutActivity extends AppCompatActivity {
             }
         }
 
-        if (finished == true) {
+        if (finished) {
             ViewGroup layout = (ViewGroup) pauseButton.getParent();
             if(null!=layout)
                 layout.removeView(pauseButton);
-                currentTimer.setText("");
+                layout.removeView(currentTimer);
         }
     }
 
@@ -139,7 +139,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
         // This function controls the state of the muted boolean - and also changes the btn image appropriately
 
-        if (muted == false) {
+        if (!muted) {
             muted = true;
             muteImageButton.setImageResource(R.drawable.ic_unmute);
         } else {
