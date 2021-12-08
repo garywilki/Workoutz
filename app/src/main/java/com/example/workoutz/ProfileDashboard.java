@@ -34,6 +34,8 @@ public class ProfileDashboard extends AppCompatActivity {
             // Acquire the selected profile
             this.profile = MainModel.getProfile(profileID);
 
+            this.profile.updateHistoryDates();
+
             Log.i("ProfileDashboard", "ProfileDashboard.onCreate() -> " + profile.id + " " + profile.name + " " + profile.reps + " " + profile.workIntervalSeconds + " " + profile.restIntervalSeconds + " & " + Profile.nextID);
 
             // Display data from the selected profile
