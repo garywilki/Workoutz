@@ -9,12 +9,10 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class Workout extends AppCompatActivity {
+public class WorkoutActivity extends AppCompatActivity {
 
     TextView time;
     TextView repsRemaining;
@@ -128,7 +126,7 @@ public class Workout extends AppCompatActivity {
             // Make sure to stop any currently running timer when back is pressed
             presenter.pauseTimer(view, true);
 
-            Intent intent = new Intent(this, ProfileDashboard.class);
+            Intent intent = new Intent(this, ProfileDashboardActivity.class);
             intent.putExtra(MainModel.EXTRA_INT_PROFILEID, p.id);
             startActivity(intent);
         }

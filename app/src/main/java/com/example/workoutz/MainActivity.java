@@ -10,10 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Profile adapter that will handle data in the ListView
     ArrayAdapter<Profile> adapter;
-    //
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     public void goToProfileDashboard(Profile p) {
         if (p != null) {
             Log.i("MainActivity", "MainActivity.goToProfileDashboard() -> " + p.id + " " + p.name + " " + p.reps + " " + p.workIntervalSeconds + " " + p.restIntervalSeconds + " & " + p.nextID);
-            Intent intent = new Intent(this, ProfileDashboard.class);
+            Intent intent = new Intent(this, ProfileDashboardActivity.class);
             intent.putExtra(MainModel.EXTRA_INT_PROFILEID, p.id);
             startActivity(intent);
         }
@@ -59,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view - The view object that called the method
      */
     public void addNewProfileButton(View view) {
-        Intent intent = new Intent(this, NewProfile.class);
+        Intent intent = new Intent(this, NewProfileActivity.class);
         startActivity(intent);
     }
 

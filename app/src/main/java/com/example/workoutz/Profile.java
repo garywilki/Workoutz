@@ -83,6 +83,7 @@ public class Profile {
                 }
             }
             else {
+                differenceDays = Math.abs(differenceDays);
                 for (int i = recentTimes.size() - 1; i >= 0; i--) {
                     if (i - differenceDays >= 0) {
                         recentTimes.set(i, recentTimes.get(i - differenceDays));

@@ -1,13 +1,11 @@
 package com.example.workoutz;
 
-import android.app.Activity;
-import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.view.View;
 
 public class WorkoutPresenter {
 
-    private Workout activity;
+    private WorkoutActivity activity;
     private CountDownTimer timer;
     public int currentMillis;
 
@@ -24,7 +22,7 @@ public class WorkoutPresenter {
     int timeElapsed;
 
 
-    public WorkoutPresenter(Workout activity, Profile p) {
+    public WorkoutPresenter(WorkoutActivity activity, Profile p) {
 
         // Initialize the time and activity variables
         this.activity = activity;

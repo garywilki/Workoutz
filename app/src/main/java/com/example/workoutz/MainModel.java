@@ -22,15 +22,27 @@ public class MainModel {
     // Used for passing profile IDs to other activities
     public static final String EXTRA_INT_PROFILEID = "com.example.workoutz.PROFILEID";
 
+    /**
+     * addProfileTime()
+     * Selects a profile and enters the ProfileDashboard activity
+     *
+     * @param activity - the calling activity
+     * @param profileID - the unique ID of the profile
+     * @param seconds - The workout duration to add to the profile
+     */
     public static void addProfileTime(Activity activity, int profileID, int seconds) {
         Profile p = MainModel.getProfile(profileID);
-        p.addTime(seconds);
-        saveProfilesToDevice(activity); // Immediately update the device record
+        if (p != null) {
+            p.addTime(seconds);
+            saveProfilesToDevice(activity); // Immediately update the device record
+        }
     }
 
     /**
      * loadProfilesFromDevice()
      * Loads all profile data from device into memory
+     *
+     * @param activity - the calling activity
      */
     public static void loadProfilesFromDevice(Activity activity) {
 
@@ -55,6 +67,8 @@ public class MainModel {
     /**
      * saveProfilesFromDevice()
      * Saves all profile data from memory to device
+     *
+     * @param activity - the calling activity
      */
     public static void saveProfilesToDevice(Activity activity) {
         String jsonProfileList = gson.toJson(MainModel.profileList);
@@ -68,6 +82,7 @@ public class MainModel {
      * addProfile()
      * Adds a new profile to the profile list
      *
+     * @param activity - the calling activity
      * @param p - the new profile to be added to the list
      */
     public static void addProfile(Activity activity, Profile p, boolean saveChangesToDevice) {
@@ -81,6 +96,7 @@ public class MainModel {
      * deleteProfile()
      * Adds a new profile to the profile list
      *
+     * @param activity - the calling activity
      * @param profileID - the unique ID of the profile
      */
     public static void deleteProfile(Activity activity, long profileID, boolean saveChangesToDevice) {

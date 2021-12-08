@@ -10,17 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Workoutz">
         <activity
-            android:name=".Workout"
+            android:name=".WorkoutActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:exported="false" />
         <activity
-            android:name=".ProfileDashboard"
+            android:name=".ProfileDashboardActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:exported="false" />
         <activity
-            android:name=".NewProfile"
+            android:name=".NewProfileActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:exported="false" />
