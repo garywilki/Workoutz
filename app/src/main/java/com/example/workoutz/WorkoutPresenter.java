@@ -5,21 +5,22 @@ import android.view.View;
 
 public class WorkoutPresenter {
 
+    // Initialize variables for the activity, timer and currentMillis
     private WorkoutActivity activity;
     private CountDownTimer timer;
     public int currentMillis;
 
-    //initialize profile interval and rep variables
+    // Initialize profile interval and rep variables
     int pReps;
     int pWork;
     int pRest;
-    Boolean working = false;
-    Boolean preWorkout = true;
+    Boolean working = false; // To know whether or not it's a rest or work interval
+    Boolean preWorkout = true; // Tracks whether or not the preworkout countdown timer is active
     Boolean running = false;
     Boolean exitingWorkout = false;
-    String beepType = "";
+    String beepType = ""; // Used to convey the appropriate type (length) of beep to the WorkoutActivity
     int profID;
-    int timeElapsed;
+    int timeElapsed; // Used for tracking time spent for logging in the graph on the Dashboard
 
 
     public WorkoutPresenter(WorkoutActivity activity, Profile p) {
@@ -40,6 +41,8 @@ public class WorkoutPresenter {
     }
 
     public void startTimer(View view) {
+
+        // Initiates countdown timer based on profile information and other relevant values
 
         running = true;
 
@@ -104,6 +107,8 @@ public class WorkoutPresenter {
     }
 
     public void pauseTimer(View view, Boolean exiting) {
+        // Cancels current countdown timer
+
         exitingWorkout = exiting;
         if (this.timer != null) {
             if (exiting) {

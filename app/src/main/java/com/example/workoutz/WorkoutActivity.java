@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 public class WorkoutActivity extends AppCompatActivity {
 
+    // Variables to access on-screen items and also the WorkoutPresenter and other timer-related items
     TextView time;
     TextView repsRemaining;
     TextView currentTimer;
@@ -61,7 +62,6 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     public void togglePauseButton(View view) {
-        // TO DO:
         // Pauses/Unpauses the workout timer
 
         // Pass the work off to the presenter class
@@ -120,6 +120,7 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     public void backButton(View view) {
+        // RETURN to profile dashboard activity
         if (p != null) {
             Log.i("MainActivity", "MainActivity.goToProfileDashboard() -> " + p.id + " " + p.name + " " + p.reps + " " + p.workIntervalSeconds + " " + p.restIntervalSeconds + " & " + p.nextID);
 
