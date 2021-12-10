@@ -63,7 +63,9 @@ public class WorkoutPresenter {
                 if (pReps <= 1 && working == true) {
                     MainModel.addProfileTime(activity, profID, timeElapsed);
                     working = false;
-                    pReps -= 1;
+                    if (pReps >=1) {
+                        pReps -= 1;
+                    }
                     activity.updateTime("Finished!", true, pReps, "Rest", "long");
                     running = false;
                 } else {
@@ -88,7 +90,9 @@ public class WorkoutPresenter {
                             // Follow same update procedure as above every time we switch from Work to Rest and vice versa
                             MainModel.addProfileTime(activity, profID, timeElapsed);
                             working = true;
-                            pReps -= 1;
+                            if (pReps >=1) {
+                                pReps -= 1;
+                            }
                             currentMillis = pWork;
                             activity.updateTime(null, false, pReps, "Work", "long");
                             startTimer(view);
